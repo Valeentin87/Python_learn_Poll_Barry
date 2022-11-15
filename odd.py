@@ -10,7 +10,6 @@ if right_this_minute in odds:
 else:
     print('Not an odd minute.')
 
-where_am_i = getcwd()
-print(where_am_i)
+#where_am_i = getcwd()
+#print(where_am_i)
 
-print(sys.version)
