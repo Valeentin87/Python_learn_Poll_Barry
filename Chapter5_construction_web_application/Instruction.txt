@@ -44,3 +44,7 @@ Press CTRL+C to quit
         return render_template('entry.html', the_title = 'Welcome to search4letters on the web!')
 
     здесь entry.html имя шаблона для отображения, а 'Welcome to search4letters on the web!' - значение аргумента 'the_title'
+
+8. C учётом пунктов 6,7 изменим код файла hello_flask.py и поменяем его название на vsearch4web.py
+9. Внутри каталога с файлом приложения создадим папку static, в которую поместим файл hf.css (c описанием таблицы стилей)
+и папку templates в которой должны находиться все шаблоны html используемые в нашем web приложении
