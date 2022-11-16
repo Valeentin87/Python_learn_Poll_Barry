@@ -53,3 +53,28 @@ Press CTRL+C to quit
  умолчанию применяется метод обработки HTTP запроса GET, вместе с тем в HTTP запросе entry.html используется метод POST
  <form method='POST' action='/search4'> # строка из файла energy.html
  в аргументе декоратора @app.route('/search4', methods = 'POST')  добавляем метод пост как аргумент
+
+11. Чтобы каждый раз не приходилось перезапускать и проверять програму можно перейти в режим отладки, для этого меняем
+последнюю строку на
+app.run(debug=True)
+
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 470-396-852  # теперь после каждого изменения файл будет перезапускаться самостоятельно
+
+12. Но теперь какую бы фразу в форме entry мы не вводили возвращается один и тот же ответ - потому что в аргументе функции
+search4letters жёстко задан аргумент со значением 'life, the universe, and everything!'
+
+13. Для того, чтобы открыть доступ к переданным объектам есть объект request содержащий атрибут-cловарь form с данным HTML-формы,
+отправленной браузером, чтобы прочитать данные формы необходимо поместить имя элемента в квадратные скобки
+
+<tr><td>Phrase:</td><td><input name='phrase' type='TEXT' width='60'></td></tr>
+                        request.form['phrase']
+
+для этого импортируем request
+from flask import request
+''' в декорированной функции do_search сделаем возможность ввода данных в форму
+удалив жестко заданные строки'''
+    phrase = request.form['phrase']
+    letters = request.form['letters']
+    result_set = search4letters(phrase, letters)

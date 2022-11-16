@@ -1,4 +1,4 @@
-from flask import Flask, render_template   # импортируем класс Flask из модуля flask
+from flask import Flask, render_template, request   # импортируем класс Flask из модуля flask
 from vsearch import search4letters
 
 
@@ -12,11 +12,13 @@ def hello() -> str:         # декоратор route через перемен
 def do_search() -> str:
     '''Функция возвращает через декоратор веб-серверу localhost(127.0.0.1) а тот в свою очередь веб браузеру
     результат работы функции search4letters из созданного нами ранее модуля vsearch при обращении по URL localhost/search '''
-    result_set = search4letters('life, the universe, and everything!', 'eiru,!')
+    phrase = request.form['phrase']
+    letters = request.form['letters']
+    result_set = search4letters(phrase, letters)
     result_str = ''.join(list(result_set))
     return result_str
 
 @app.route('/entry')
 def entry_page() -> 'html':
         return render_template('entry.html', the_title = 'Welcome to search4letters on the web!')
-app.run()   # предлагает объекту Flask запустить веб-сервер в переменной app используя метод run
+app.run(debug=True)   # предлагает объекту Flask запустить веб-сервер в переменной app используя метод run
