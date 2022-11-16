@@ -27,3 +27,20 @@ Press CTRL+C to quit
 В веббраузере набираем в адресной строке localhost:5000 и видим Hello world from Flask!
 в командной строке откуда запускали файл видим сообщение
 127.0.0.1 - - [16/Nov/2022 00:37:40] "GET / HTTP/1.1" 200
+
+4. Создадим html-шаблоны для ввода данных в браузере (entry.html), получения ответных данных (results.html) и базового шаблона
+(base.html) у которого будут наследовать оформление другие веб html-странички
+
+5. Функция render_template принимает имя шаблона со всеми аргументами и возвращает строку с разметкой HTML
+ИМПОРТИРУЕМ её из модуля flask
+        from flask import render_template
+
+
+6. Создадим новый URL '/entry'
+
+7. Создадим новую декорированную функцию
+    @app.route('/entry')
+    def entry_page() -> 'html':
+        return render_template('entry.html', the_title = 'Welcome to search4letters on the web!')
+
+    здесь entry.html имя шаблона для отображения, а 'Welcome to search4letters on the web!' - значение аргумента 'the_title'
