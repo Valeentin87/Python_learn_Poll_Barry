@@ -8,7 +8,7 @@ app = Flask(__name__)    # создание экземпляра объекта 
 def hello() -> str:         # декоратор route через переменную app позволяет связать веб-путь URL c функцией на Python
     return 'Hello world from Flask!'  # далее декоратор route возвращает результат выполнения функции ожидающему веб серверу, а тот в свою очередь веб-браузеру
 
-@app.route('/search4')
+@app.route('/search4', methods=['POST'])
 def do_search() -> str:
     '''Функция возвращает через декоратор веб-серверу localhost(127.0.0.1) а тот в свою очередь веб браузеру
     результат работы функции search4letters из созданного нами ранее модуля vsearch при обращении по URL localhost/search '''
