@@ -8,17 +8,33 @@ app = Flask(__name__)    # создание экземпляра объекта 
 def hello() -> str:         # декоратор route через переменную app позволяет связать веб-путь URL c функцией на Python
     return 'Hello world from Flask!'  # далее декоратор route возвращает результат выполнения функции ожидающему веб серверу, а тот в свою очередь веб-браузеру
 
-@app.route('/search4', methods=['POST'])
-def do_search() -> str:
+
+#@app.route('/search4', methods=['POST'])
+#def do_search() -> 'html':
     '''Функция возвращает через декоратор веб-серверу localhost(127.0.0.1) а тот в свою очередь веб браузеру
     результат работы функции search4letters из созданного нами ранее модуля vsearch при обращении по URL localhost/search '''
-    phrase = request.form['phrase']
-    letters = request.form['letters']
-    result_set = search4letters(phrase, letters)
-    result_str = ''.join(list(result_set))
-    return result_str
+#    phrase = request.form['phrase']
+#    letters = request.form['letters']
+#    result_set = search4letters(phrase, letters)
+#    result_str = ''.join(list(result_set))
+#    return result_str
 
 @app.route('/entry')
 def entry_page() -> 'html':
         return render_template('entry.html', the_title = 'Welcome to search4letters on the web!')
-app.run(debug=True)   # предлагает объекту Flask запустить веб-сервер в переменной app используя метод run
+
+@app.route('/search4', methods=['POST'])
+def do_search() -> 'html':
+    '''Функция возвращает html страницу 'results.html' в которую в качестве аргументов вставляются фраза которую ввел
+    пользователь, буквы, которые ищем в фразе, буквы, которые нашли и название страницы'''
+    phrase = request.form['phrase']
+    letters = request.form['letters']
+    result_set = search4letters(phrase, letters)
+    result_str = ''.join(list(result_set))
+    title = 'Here are your results'
+    return render_template('results.html', the_phrase = phrase, the_letters = letters, the_title = title, the_results = result_str)
+
+
+app.run(debug=True)   # предлагает объекту Flask запустить веб-сервер в переменной app используя метод run debug=True -
+                        # режим отладки
+

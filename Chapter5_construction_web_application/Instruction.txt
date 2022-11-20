@@ -78,3 +78,10 @@ from flask import request
     phrase = request.form['phrase']
     letters = request.form['letters']
     result_set = search4letters(phrase, letters)
+
+14. Изменим текст функции do_search, чтобы она возвращала не строку, а html страницу в которую возвращались бы следующие
+данные:
+название таблички, результат выполнения функции поиска, фразу, в которой мы искали буквы, буквы, которые мы искали в фразе.
+Всё это реализуем через функцию render_template
+
+render_template('results.html', the_phrase = phrase, the_letters = letters, the_title = title, the_results = result_str)
