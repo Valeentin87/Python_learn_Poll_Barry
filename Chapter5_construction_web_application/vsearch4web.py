@@ -35,7 +35,7 @@ def do_search() -> 'html':
     title = 'Here are your results'
     return render_template('results.html', the_phrase = phrase, the_letters = letters, the_title = title, the_results = result_str)
 
-
-app.run(debug=True)   # предлагает объекту Flask запустить веб-сервер в переменной app используя метод run debug=True -
+if __name__=="__main__":
+    app.run(debug=True)   # предлагает объекту Flask запустить веб-сервер в переменной app используя метод run debug=True -
                         # режим отладки
 
