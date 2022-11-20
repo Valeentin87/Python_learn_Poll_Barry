@@ -85,3 +85,10 @@ from flask import request
 Всё это реализуем через функцию render_template
 
 render_template('results.html', the_phrase = phrase, the_letters = letters, the_title = title, the_results = result_str)
+
+15. Для завершения написания web-приложения сделаем так, чтоб декоратор @app.route('/') перенаправлял нас на страницу
+(/entry), для этого импортируем метод redirect, встроенный в Flask
+
+16. Можно к одной функции привязать несколько URL без функции redirect. Удалим её из импортируемых файлов
+@app.route('/') поместим в коде перед @app.route('/entry') теперь обработка производится в одном запросе, а не в двух,
+как при перенаправлении.

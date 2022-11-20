@@ -1,24 +1,25 @@
-from flask import Flask, render_template, request   # импортируем класс Flask из модуля flask
+from flask import Flask, render_template, request, redirect   # импортируем класс Flask из модуля flask
 from vsearch import search4letters
 
 
 app = Flask(__name__)    # создание экземпляра объекта Flask и присваивание его переменной app
 
-@app.route('/')     # декоратор функции настраивает поведение функции без изменения кода самой функции, функция становится декорированной
-def hello() -> str:         # декоратор route через переменную app позволяет связать веб-путь URL c функцией на Python
-    return 'Hello world from Flask!'  # далее декоратор route возвращает результат выполнения функции ожидающему веб серверу, а тот в свою очередь веб-браузеру
+#@app.route('/')     # декоратор функции настраивает поведение функции без изменения кода самой функции, функция становится декорированной
+#def hello() -> '302':         # декоратор route через переменную app позволяет связать веб-путь URL c функцией на Python
+#    return redirect('/entry')  # далее декоратор route возвращает результат выполнения функции ожидающему веб серверу, а тот в свою очередь веб-браузеру
 
 
 #@app.route('/search4', methods=['POST'])
 #def do_search() -> 'html':
-    '''Функция возвращает через декоратор веб-серверу localhost(127.0.0.1) а тот в свою очередь веб браузеру
-    результат работы функции search4letters из созданного нами ранее модуля vsearch при обращении по URL localhost/search '''
+    # Функция возвращает через декоратор веб-серверу localhost(127.0.0.1) а тот в свою очередь веб браузеру
+    # результат работы функции search4letters из созданного нами ранее модуля vsearch при обращении по URL localhost/search '''
 #    phrase = request.form['phrase']
 #    letters = request.form['letters']
 #    result_set = search4letters(phrase, letters)
 #    result_str = ''.join(list(result_set))
 #    return result_str
 
+@app.route('/')
 @app.route('/entry')
 def entry_page() -> 'html':
         return render_template('entry.html', the_title = 'Welcome to search4letters on the web!')
