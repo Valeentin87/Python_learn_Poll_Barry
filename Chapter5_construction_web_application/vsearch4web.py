@@ -24,6 +24,10 @@ app = Flask(__name__)    # создание экземпляра объекта 
 def entry_page() -> 'html':
         return render_template('entry.html', the_title = 'Welcome to search4letters on the web!')
 
+def log_request(req: 'flask_request', res: str) -> None:
+    with open('vsearch.log', 'a', encoding='utf-8') as data:
+        print(req, res, file=data)
+
 @app.route('/search4', methods=['POST'])
 def do_search() -> 'html':
     '''Функция возвращает html страницу 'results.html' в которую в качестве аргументов вставляются фраза которую ввел
@@ -32,10 +36,13 @@ def do_search() -> 'html':
     letters = request.form['letters']
     result_set = search4letters(phrase, letters)
     result_str = ''.join(list(result_set))
+    log_request(request, result_str)  # вызов функции, позволяющей документировать вводимые запросы и результаты
     title = 'Here are your results'
     return render_template('results.html', the_phrase = phrase, the_letters = letters, the_title = title, the_results = result_str)
 
 if __name__=="__main__":
     app.run(debug=True)   # предлагает объекту Flask запустить веб-сервер в переменной app используя метод run debug=True -
                         # режим отладки
+
+
 
