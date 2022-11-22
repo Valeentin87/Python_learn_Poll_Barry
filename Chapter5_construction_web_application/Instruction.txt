@@ -105,3 +105,13 @@ PythonAneWhere. Для этого строчку app.run обернём усло
 def log_request(req: 'flask_request', res: str) -> None:
     with open('vsearch.log', 'a', encoding='utf-8') as data:
         print(req, res, file=data)
+
+в качестве аргументов принимаем запрос и результат поиска и эти данные добавляются в конец файла 'vsearch.log'
+
+19. Далее добавим еще один URL адрес '/viewlog', который позволит выводить в окно браузера данные из журнала документирования
+результатоа поиска, для этого создадим декорированную функцию
+@app.route('/viewlog')
+def view_log() -> str:
+    with open('vsearch.log') as log:  # открываем для чтения файл 'vsearch.log' считывание проведем сразу целиком
+        contents=log.read()           # считывание файла целиком методом read() и запись в переменную contents
+    return contents  # возвращение в окно браузера содержимого файла
