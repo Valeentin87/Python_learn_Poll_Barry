@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect   # импортируем класс Flask из модуля flask
+from flask import Flask, render_template, request, redirect, escape   # импортируем класс Flask из модуля flask
 from vsearch import search4letters
 
 
@@ -26,7 +26,10 @@ def entry_page() -> 'html':
 
 def log_request(req: 'flask_request', res: str) -> None:
     with open('vsearch.log', 'a', encoding='utf-8') as data:
-        print(req, res, file=data)
+        print(req.form, file=data, end='|')
+        print(req.remote_addr, file=data, end='|')
+        print(req.user_agent, file=data, end='|')
+        print(res, file=data)
 
 @app.route('/search4', methods=['POST'])
 def do_search() -> 'html':
@@ -44,7 +47,7 @@ def do_search() -> 'html':
 def view_log() -> str:
     with open('vsearch.log') as log:
         contents=log.read()
-    return contents
+    return escape(contents)
 
 if __name__=="__main__":
     app.run(debug=True)   # предлагает объекту Flask запустить веб-сервер в переменной app используя метод run debug=True -
