@@ -26,10 +26,7 @@ def entry_page() -> 'html':
 
 def log_request(req: 'flask_request', res: str) -> None:
     with open('vsearch.log', 'a', encoding='utf-8') as data:
-        print(req.form, file=data, end='|')
-        print(req.remote_addr, file=data, end='|')
-        print(req.user_agent, file=data, end='|')
-        print(res, file=data)
+        print(req.form,req.remote_addr,req.user_agent, res, file=data, sep='|')
 
 @app.route('/search4', methods=['POST'])
 def do_search() -> 'html':
