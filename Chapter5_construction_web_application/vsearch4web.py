@@ -42,9 +42,12 @@ def do_search() -> 'html':
 
 @app.route('/viewlog')
 def view_log() -> str:
+    list_res = []
     with open('vsearch.log') as log:
-        contents=log.read()
-    return escape(contents)
+        for line in log:
+            contents=''.join(log.readlines())
+            list_res.append(contents.split('|'))
+        return escape(str(list_res))
 
 if __name__=="__main__":
     app.run(debug=True)   # предлагает объекту Flask запустить веб-сервер в переменной app используя метод run debug=True -
